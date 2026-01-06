@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Make a Wish 🎂</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="cake.css">
+</head>
+<body>
+
+  <!-- Cake content -->
+  <div class="cake-container">
+
+    <!-- Candle -->
+    <div class="candle">
+      <div class="flame" id="flame"></div>
+    </div>
+
+    <!-- Cake -->
+    <div class="cake">
+      <div class="layer top"></div>
+      <div class="layer middle"></div>
+      <div class="layer bottom"></div>
+    </div>
+
+    <h1>Make a wish 🎂✨</h1>
+
+    <!-- Blow candle button -->
+    <button id="blowBtn" class="action-btn" onclick="blowCandle()">
+      Blow the candle 💨
+    </button>
+  </div>
+
+  <!-- FULL SCREEN HAPPY BIRTHDAY BANNER -->
+  <div class="full-banner" id="fullBanner">
+    <div class="banner-text">
+      🎉 HAPPY BIRTHDAY 🎉
+    </div>
+
+    <button id="surpriseBtn" class="action-btn" onclick="goNext()">
+  Surprise awaits ✨
+</button>
+
+  </div>
+
+  <!-- Confetti -->
+  <canvas id="confetti"></canvas>
+
+  <!-- Birthday Sound -->
+  <audio id="birthdaySound" src="Happy-Birthday-Song-mp3.mp3"></audio>
+
+  <!-- Script -->
+  <script src="cake.js"></script>
+</body>
+</html>

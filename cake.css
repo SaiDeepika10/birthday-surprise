@@ -1,0 +1,162 @@
+/* Base */
+body {
+  margin: 0;
+  height: 100vh;
+  background: #fde2e4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Cake container */
+.cake-container {
+  text-align: center;
+  z-index: 1;
+}
+
+/* Candle */
+.candle {
+  width: 12px;
+  height: 40px;
+  background: #ffffff;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 6px;
+}
+
+/* Flame */
+.flame {
+  width: 14px;
+  height: 14px;
+  background: orange;
+  border-radius: 50%;
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: flicker 0.15s infinite alternate;
+}
+
+@keyframes flicker {
+  from {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.2);
+  }
+}
+
+/* Cake */
+.cake {
+  margin-top: 10px;
+}
+
+.layer {
+  width: 160px;
+  height: 45px;
+  border-radius: 12px;
+  margin: 6px auto;
+}
+
+.top { background: #ffcad4; }
+.middle { background: #f4acb7; }
+.bottom { background: #e5989b; }
+
+/* Text */
+h1 {
+  margin: 25px 0;
+  color: #e0569a;
+}
+
+/* Buttons */
+.action-btn {
+  display: none;
+  margin-top: 22px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 30px;
+  background: #ffffff;
+  color: #e0569a;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ========================= */
+/* FULL SCREEN BANNER */
+/* ========================= */
+
+.full-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ffcad4, #f4acb7, #e5989b);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+  animation: bannerDrop 1.2s ease forwards;
+}
+
+/* Rope */
+.full-banner::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  width: 100%;
+  height: 4px;
+  background: #d4a373;
+}
+
+/* Banner text */
+.banner-text {
+  background: #ffffff;
+  padding: 30px 50px;
+  border-radius: 12px;
+  font-size: 40px;
+  font-weight: 700;
+  color: #e0569a;
+  letter-spacing: 4px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* Banner button */
+.banner-btn {
+  display: none;
+  margin-top: 35px;
+}
+
+/* Cloth-like drop & swing */
+@keyframes bannerDrop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(0) rotate(2deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* Confetti canvas */
+#confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1200;
+}

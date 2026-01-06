@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+/* ===== BASE ===== */
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #5a0f1b, #2b0208);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  color: #ffe6ec;
+}
+
+/* ===== VIDEO ===== */
+.video-wrapper {
+  position: absolute;
+  width: min(90vw, 420px);
+  border-radius: 14px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  overflow: hidden;
+  z-index: 2;
+  transition: opacity 2s ease;
+}
+
+video {
+  width: 100%;
+  display: block;
+}
+
+/* ===== END MESSAGE ===== */
+.end-message {
+  position: absolute;
+  text-align: center;
+  font-size: clamp(20px, 5vw, 30px);
+  line-height: 1.5;
+  opacity: 0;
+  transition: opacity 3s ease;
+  z-index: 3;
+}
+
+/* ===== HEARTS ===== */
+.heart {
+  position: absolute;
+  color: rgba(255, 120, 150, 0.4);
+  font-size: 18px;
+  animation: floatUp 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(100vh) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-10vh) scale(1.2);
+    opacity: 1;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎶 Background music -->
+<audio id="bgMusic" src="Warm-Memories-Emotional-Inspiring-Piano(chosic.com).mp3" loop></audio>
+
+<!-- 🎥 Envelope video -->
+<div class="video-wrapper" id="videoBox">
+  <video id="letterVideo" src="ed.mp4" autoplay muted playsinline></video>
+</div>
+
+<!-- 💌 Final text -->
+<div class="end-message" id="endText">
+  ok, <strong>Bayeeee</strong>❤<br>
+  Have an amazing birthday,<br>
+  love you, xoxo 💖
+</div>
+
+<script>
+/* ===== MUSIC FADE-IN ===== */
+const music = document.getElementById("bgMusic");
+music.volume = 0;
+music.play();
+
+let v = 0;
+const fade = setInterval(() => {
+  if (v < 0.6) {
+    v += 0.01;
+    music.volume = v;
+  } else {
+    clearInterval(fade);
+  }
+}, 200);
+
+/* ===== FLOATING HEARTS ===== */
+for (let i = 0; i < 18; i++) {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDelay = Math.random() * 10 + "s";
+  heart.style.fontSize = Math.random() * 14 + 14 + "px";
+  document.body.appendChild(heart);
+}
+
+/* ===== VIDEO END → SHOW TEXT ===== */
+const video = document.getElementById("letterVideo");
+const videoBox = document.getElementById("videoBox");
+const endText = document.getElementById("endText");
+
+video.addEventListener("ended", () => {
+  videoBox.style.opacity = "0";   // fade out video
+  endText.style.opacity = "1";    // fade in text
+});
+
+/* Allow unmute on click (browser rule) */
+document.body.addEventListener("click", () => {
+  video.muted = false;
+});
+</script>
+
+</body>
+</html>
