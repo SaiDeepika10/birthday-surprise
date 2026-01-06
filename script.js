@@ -1,117 +1,119 @@
-// ===============================
-// TARGET DATE (17 Jan 2026)
-// ===============================
-const targetDate = new Date("2026-01-17T00:00:00").getTime();
+document.addEventListener("DOMContentLoaded", () => {
 
-// ===============================
-// CONNECT HTML ELEMENTS
-// ===============================
-const daysEl = document.getElementById("days");
-const hoursEl = document.getElementById("hours");
-const minutesEl = document.getElementById("minutes");
-const secondsEl = document.getElementById("seconds");
+  const birthday = new Date("January 17, 2026 00:00:00").getTime();
 
-const birthdayLetter = document.getElementById("birthdayLetter");
+  const daysEl = document.getElementById("days");
+  const hoursEl = document.getElementById("hours");
+  const minutesEl = document.getElementById("minutes");
+  const secondsEl = document.getElementById("seconds");
 
-// ===============================
-// CONFETTI SETUP
-// ===============================
-const canvas = document.getElementById("confetti");
-const ctx = canvas.getContext("2d");
+  const celebrateBtn = document.getElementById("celebrateBtn");
+  const messageText = document.getElementById("messageText");
+  const midnightMsg = document.getElementById("midnightMsg");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+  /* ================= CONFETTI ================= */
+  const canvas = document.getElementById("confetti");
+  const ctx = canvas.getContext("2d");
 
-const confettiPieces = [];
-const colors = ["#f78fb3", "#f3a683", "#f7d794", "#e0569a", "#ffffff"];
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-let confettiStarted = false;
+  let confetti = [];
+  let confettiStarted = false;
 
-// ===============================
-// CREATE CONFETTI
-// ===============================
-function createConfetti() {
-  for (let i = 0; i < 150; i++) {
-    confettiPieces.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height - canvas.height,
-      size: Math.random() * 8 + 4,
-      speed: Math.random() * 3 + 2,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      tilt: Math.random() * 10
+  function startConfetti() {
+    if (confettiStarted) return;
+    confettiStarted = true;
+
+    for (let i = 0; i < 180; i++) {
+      confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        size: Math.random() * 8 + 4,
+        speed: Math.random() * 3 + 2,
+        color: ["#ffcad4", "#f4acb7", "#e5989b", "#ffffff"][
+          Math.floor(Math.random() * 4)
+        ]
+      });
+    }
+    requestAnimationFrame(drawConfetti);
+  }
+
+  function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach(c => {
+      ctx.fillStyle = c.color;
+      ctx.fillRect(c.x, c.y, c.size, c.size);
+      c.y += c.speed;
+      if (c.y > canvas.height) c.y = -10;
     });
-  }
-}
-
-// ===============================
-// DRAW CONFETTI
-// ===============================
-function drawConfetti() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  confettiPieces.forEach((p) => {
-    ctx.fillStyle = p.color;
-    ctx.beginPath();
-    ctx.rect(p.x, p.y, p.size, p.size);
-    ctx.fill();
-  });
-
-  updateConfetti();
-}
-
-// ===============================
-// UPDATE CONFETTI MOVEMENT
-// ===============================
-function updateConfetti() {
-  confettiPieces.forEach((p) => {
-    p.y += p.speed;
-    p.x += Math.sin(p.y * 0.02);
-
-    if (p.y > canvas.height) {
-      p.y = -10;
-    }
-  });
-}
-
-// ===============================
-// COUNTDOWN LOGIC
-// ===============================
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = targetDate - now;
-
-  // WHEN COUNTDOWN ENDS
-  if (diff <= 0) {
-    daysEl.textContent = "00";
-    hoursEl.textContent = "00";
-    minutesEl.textContent = "00";
-    secondsEl.textContent = "00";
-
-    birthdayLetter.style.display = "block";
-
-    // Start confetti once
-    if (!confettiStarted) {
-      confettiStarted = true;
-      createConfetti();
-      setInterval(drawConfetti, 20);
-    }
-
-    return;
+    requestAnimationFrame(drawConfetti);
   }
 
-  // TIME CALCULATIONS
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
+  /* ================= COUNTDOWN ================= */
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = birthday - now;
 
-  // UPDATE UI
-  daysEl.textContent = String(days).padStart(2, "0");
-  hoursEl.textContent = String(hours).padStart(2, "0");
-  minutesEl.textContent = String(minutes).padStart(2, "0");
-  secondsEl.textContent = String(seconds).padStart(2, "0");
+    if (diff <= 0) {
+      daysEl.textContent = "00";
+      hoursEl.textContent = "00";
+      minutesEl.textContent = "00";
+      secondsEl.textContent = "00";
 
-}, 1000);
-function goToCakePage() {
-  window.location.href = "cake.html";
-}
+      messageText.style.display = "none";
+      midnightMsg.style.display = "block";
+      midnightMsg.className = "message msg-midnight";
+
+      startConfetti();
+      return;
+    }
+
+    daysEl.textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+    hoursEl.textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    minutesEl.textContent = Math.floor((diff / (1000 * 60)) % 60);
+    secondsEl.textContent = Math.floor((diff / 1000) % 60);
+  }
+
+  /* ================= BUTTON LOGIC ================= */
+  celebrateBtn.addEventListener("click", () => {
+    const now = Date.now();
+    const diff = birthday - now;
+
+    messageText.style.display = "block";
+
+    if (diff <= 0) {
+      window.location.href = "cake.html";
+      return;
+    }
+
+    const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hoursLeft = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+    messageText.className = "message";
+
+    if (daysLeft > 7) {
+      messageText.textContent = "Too earlyyy 😌 patience, love 💕";
+      messageText.classList.add("msg-early");
+    } else if (daysLeft > 1) {
+      messageText.textContent = `Almost there 💖 Just ${daysLeft} days to go`;
+      messageText.classList.add("msg-excited");
+    } else if (daysLeft === 1) {
+      messageText.textContent = "Tomorrow 👀✨ get ready, love 💕";
+      messageText.classList.add("msg-anticipate");
+    } else {
+      messageText.textContent = `Soooo close ⏰ Just ${hoursLeft} hours left 💗`;
+      messageText.classList.add("msg-tense");
+    }
+  });
+
+  /* ================= RUN ================= */
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+});
