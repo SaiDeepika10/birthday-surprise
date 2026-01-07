@@ -178,3 +178,37 @@ body {
   75% { transform: translateX(-3px); }
   100% { transform: translateX(0); }
 }
+/* ===== MIDNIGHT MESSAGE (SUBTLE & ROMANTIC) ===== */
+.midnight-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(32px, 6vw, 44px);
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 20px;
+  letter-spacing: 1px;
+  animation: softFadeIn 1.2s ease forwards;
+}
+
+/* Small note below */
+.midnight-note {
+  margin-top: 8px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 18px;
+  color: #ffffff;
+  opacity: 0.85;
+  animation: softFadeIn 1.6s ease forwards;
+}
+
+/* Gentle fade (not flashy) */
+@keyframes softFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
