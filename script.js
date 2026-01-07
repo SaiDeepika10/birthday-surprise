@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  /* ================= DATE ================= */
   const birthday = new Date("January 17, 2026 00:00:00").getTime();
 
+  /* ================= ELEMENTS ================= */
   const daysEl = document.getElementById("days");
   const hoursEl = document.getElementById("hours");
   const minutesEl = document.getElementById("minutes");
@@ -10,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const celebrateBtn = document.getElementById("celebrateBtn");
   const messageText = document.getElementById("messageText");
   const midnightMsg = document.getElementById("midnightMsg");
+  const midnightNote = document.getElementById("midnightNote");
 
   /* ================= CONFETTI ================= */
   const canvas = document.getElementById("confetti");
@@ -31,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         y: Math.random() * canvas.height - canvas.height,
         size: Math.random() * 8 + 4,
         speed: Math.random() * 3 + 2,
-        color: ["#ffcad4", "#f4acb7", "#e5989b", "#ffffff"][
+        color: ["#f78fb3", "#f3a683", "#f7d794", "#e0569a", "#ffffff"][
           Math.floor(Math.random() * 4)
         ]
       });
@@ -62,8 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
       secondsEl.textContent = "00";
 
       messageText.style.display = "none";
+
       midnightMsg.style.display = "block";
-      midnightMsg.className = "message msg-midnight";
+      midnightNote.style.display = "block";
 
       startConfetti();
       return;
@@ -77,20 +81,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ================= BUTTON LOGIC ================= */
   celebrateBtn.addEventListener("click", () => {
-    const now = Date.now();
-    const diff = birthday - now;
-
-    messageText.style.display = "block";
+    const diff = birthday - Date.now();
 
     if (diff <= 0) {
       window.location.href = "cake.html";
       return;
     }
 
+    messageText.style.display = "block";
+    messageText.className = "message";
+
     const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hoursLeft = Math.floor((diff / (1000 * 60 * 60)) % 24);
-
-    messageText.className = "message";
 
     if (daysLeft > 7) {
       messageText.textContent = "Too earlyyy 😌 patience, love 💕";
@@ -117,5 +119,3 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
-
-
