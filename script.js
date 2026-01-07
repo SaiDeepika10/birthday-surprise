@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const birthday = new Date("January 6, 2026 21:20:00").getTime();
+  const birthday = new Date("January 17, 2026 00:00:00").getTime();
 
   const daysEl = document.getElementById("days");
   const hoursEl = document.getElementById("hours");
@@ -117,4 +117,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
 
