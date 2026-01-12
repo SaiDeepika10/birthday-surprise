@@ -13,6 +13,13 @@
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
+    iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  -webkit-overflow-scrolling: touch;
+}
+
 
     html, body {
       margin: 0;
@@ -127,6 +134,12 @@
       heart.style.fontSize = Math.random() * 14 + 14 + "px";
       document.body.appendChild(heart);
     }
+    // 📱 Mobile detection
+if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+  window.location.href =
+    "https://www.canva.com/design/DAG-IVTY37Q/pv6v6GvB9hqES0hD5ZwMXQ/view";
+}
+
 
     /* ===== FINAL MESSAGE TIMING ===== */
     const pptFrame = document.getElementById("pptFrame");
@@ -149,3 +162,4 @@
 
 </body>
 </html>
+
